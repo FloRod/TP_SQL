@@ -106,4 +106,91 @@ FROM logement_personne
 INNER JOIN logement ON logement_personne.idLogement = logement.idLogement
 WHERE logement.ville = "paris";
 
-/*Question 16 : Affichez les informations des trois premieres personnes souhaitant acheter un logement*/
+/*Question 16 : Affichez les informations des trois premieres personnes souhaitant acheter un logement*/ 
+/*requête imbriquée*/
+SELECT *
+FROM personne
+WHERE idPersonne IN
+    (SELECT idPersonne
+     FROM demande
+     WHERE categorie = "vente")
+ORDER BY idPersonne
+LIMIT 3;
+
+/*requête join*/
+SELECT demande.*
+FROM personne
+INNER JOIN demande ON personne.idPersonne = demande.idPersonne
+WHERE categorie = "vente"
+ORDER BY idPersonne
+LIMIT 3;
+
+/*Question 17 : Affichez le prénom du vendeur pour le logement ayant la référence « 5770 »*/
+SELECT prenom
+FROM personne
+INNER JOIN logement_personne ON personne.idPersonne = logement_personne.idPersonne
+WHERE idLogement = 5770;
+
+/*Question 18 : Affichez les prénoms des personnes souhaitant accéder à un logement sur la ville de Lyon*/
+SELECT prenom
+FROM personne
+INNER JOIN demande ON personne.idPersonne = demande.idPersonne
+WHERE ville = "lyon";
+
+/*Question 19 : Affichez les prénoms des personnes souhaitant accéder à un logement en location sur la ville de Paris*/
+SELECT prenom
+FROM personne
+INNER JOIN demande ON personne.idPersonne = demande.idPersonne
+WHERE ville = "paris"
+  AND categorie = "location";
+
+/*Question 20 : Affichez les prénoms des personnes souhaitant acheter un logement de la plus grande à la plus petite superficie*/
+SELECT prenom,
+       superficie
+FROM personne
+INNER JOIN demande ON personne.idPersonne = demande.idPersonne
+WHERE categorie = "vente"
+ORDER BY superficie DESC;
+
+/*Question 21 : Quel sont les prix finaux proposés par les agences pour la maison à la vente ayant la référence « 5091 » ? (Alias : prix frais d'agence
+inclus)*/ 
+SELECT (frais + prix) AS `prix frais d'agence`
+FROM logement
+INNER JOIN logement_agence ON logement.idLogement = logement_agence.idLogement
+WHERE logement.idLogement = 5091;
+
+/*Question 23 : Si l’ensemble des logements étaient vendus ou loués demain, quel serait le bénéfice généré grâce aux frais d’agence et pour chaque agence
+(Alias : benefice, classement : par ordre croissant des gains)*/
+SELECT sum(frais) AS benefice,
+       nom
+FROM logement_agence
+INNER JOIN agence ON logement_agence.idAgence = agence.idAgence
+GROUP BY agence.idAgence
+ORDER BY benefice;
+
+/*Question 24 : Affichez les id des biens en location, les prix, suivis des frais d’agence (classement : dans l’ordre croissant des prix)*/ 
+
+
+
+/*Question 25 : Quel est le prénom du propriétaire proposant le logement le moins cher à louer ?*/
+
+
+
+/*Question 26 : Affichez le prénom et la ville où se trouve le logement de chaque propriétaire*/
+
+
+
+/*Question 27 : Quel est l’agence immobilière s’occupant de la plus grande gestion de logements répertoriés à Paris ? (alias : nombre, classement : trié par
+ordre décroissant)*/
+
+
+
+/*Question 28 : Affichez le prix et le prénom des vendeurs dont les logements sont proposés à 130000 € ou moins en prix final avec frais appliqués par les
+agences (alias : prix final, classement : ordre croissant des prix finaux) :*/
+
+
+/*Question 29 : Afficher toutes les demandes enregistrées avec la personne à l'origine de la demande (Afficher également les demandes d'anciennes personnes n'existant plus dans notre base de données).*/
+
+
+
+/*Question 30 : Afficher toutes les personnes enregistrées avec leur demandes correspondantes (Afficher également les personnes n'ayant pas formulé de demandes).*/
