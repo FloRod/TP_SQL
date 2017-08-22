@@ -1,52 +1,49 @@
+ drop database restaurant; /*suprresssion de l'ancienne BD restaurant*/
+
 -- création et utilisation de la BD restaurant
 CREATE DATABASE IF NOT EXISTS restaurant;
 USE restaurant;
 
 -- création des tables de données Commande, Plat et Ingrédients
-CREATE TABLE IF NOT EXISTS Commande
-(
-ID_Commande int NOT NULL primary key auto_increment, 
-nom varchar(100) not null, 
-the_date date, 
-total float, 
-num_table int
-);
+CREATE TABLE IF NOT EXISTS Commande (
+	ID_Commande int NOT NULL primary key auto_increment, 
+	nom varchar(100) not null, 
+	`date` date, 
+	total float, 
+	num_table int
+)  ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
-CREATE TABLE IF NOT EXISTS Plat
-(
-ID_Plat int NOT NULL primary key auto_increment, 
-nom varchar(100) not null, 
-tarif float
-);
+CREATE TABLE IF NOT EXISTS Plat (
+	ID_Plat int NOT NULL primary key auto_increment, 
+	nom varchar(100) not null, 
+	tarif float
+)  ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
-CREATE TABLE IF NOT EXISTS Ingredients
-(
-ID_Ingredient int NOT NULL primary key auto_increment, 
-nom varchar(100) not null
-);
+CREATE TABLE IF NOT EXISTS Ingredients (
+	ID_Ingredient int NOT NULL primary key auto_increment, 
+	nom varchar(100) not null
+)  ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- créationdes tables relationnels Commande_Plat et Plat_Ingrédients
-CREATE TABLE IF NOT EXISTS Commande_Plat
-(
-ID_Commande_Plat int NOT NULL PRIMARY KEY auto_increment,
-ID_Commande int,
-ID_Plat int,
-CONSTRAINT FK_Commande_plat_ID_Commande FOREIGN KEY (ID_Commande) REFERENCES COMMANDE (ID_Commande) ON DELETE RESTRICT,
-CONSTRAINT FK_Commande_plat_ID_Plat FOREIGN KEY (ID_Plat) REFERENCES PLAT (ID_Plat) ON DELETE RESTRICT
-);
+CREATE TABLE IF NOT EXISTS Commande_Plat (
+	ID_Commande_Plat int NOT NULL PRIMARY KEY auto_increment,
+	ID_Commande int,
+	ID_Plat int,
+	CONSTRAINT FK_Commande_plat_ID_Commande FOREIGN KEY (ID_Commande) REFERENCES COMMANDE (ID_Commande) ON DELETE RESTRICT,
+	CONSTRAINT FK_Commande_plat_ID_Plat FOREIGN KEY (ID_Plat) REFERENCES PLAT (ID_Plat) ON DELETE RESTRICT
+)  ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
-CREATE TABLE IF NOT EXISTS Plat_Ingredients
-(
-ID_Plat int,
-ID_Ingredient int,
-CONSTRAINT FK_Plat_Ingredients_ID_Plat FOREIGN KEY (ID_Plat) REFERENCES PLAT (ID_Plat) ON DELETE RESTRICT,
-CONSTRAINT FK_Plat_Ingredients_ID_Ingredient FOREIGN KEY (ID_Ingredient) REFERENCES INGREDIENTS (ID_Ingredient) ON DELETE RESTRICT,
-quantite int
-);
+CREATE TABLE IF NOT EXISTS Plat_Ingredients (
+	ID_Plat int,
+	ID_Ingredient int,
+	CONSTRAINT FK_Plat_Ingredients_ID_Plat FOREIGN KEY (ID_Plat) REFERENCES PLAT (ID_Plat) ON DELETE RESTRICT,
+	CONSTRAINT FK_Plat_Ingredients_ID_Ingredient FOREIGN KEY (ID_Ingredient) REFERENCES INGREDIENTS (ID_Ingredient) ON DELETE RESTRICT,
+	quantite int
+)  ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 
 -- insertion des éléments dans les tables de données Commande, Plat et Ingredients
- INSERT INTO Commande (nom, the_date, total, num_table) 
+ INSERT INTO Commande (nom, `date`, total, num_table) 
  VALUES  
  ("BERTRAND", '2017-08-22', 108.3, 8),
  ("DUPONT", '2017-08-22', 85.6, 6),
