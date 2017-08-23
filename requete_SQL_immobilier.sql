@@ -169,21 +169,41 @@ GROUP BY agence.idAgence
 ORDER BY benefice;
 
 /*Question 24 : Affichez les id des biens en location, les prix, suivis des frais d’agence (classement : dans l’ordre croissant des prix)*/ 
-
-
+SELECT logement.idLogement, prix, frais
+FROM logement
+INNER JOIN logement_agence ON logement.idLogement = logement_agence.idLogement
+WHERE categorie = "location"
+ORDER BY prix;
 
 /*Question 25 : Quel est le prénom du propriétaire proposant le logement le moins cher à louer ?*/
-
-
+SELECT prenom
+FROM personne
+INNER JOIN logement_personne ON personne.idPersonne = logement_personne.idPersonne
+WHERE logement_personne.idLogement =
+    (SELECT idLogement
+     FROM logement
+     WHERE categorie = "location"
+       AND prix =
+         (SELECT MIN(prix)
+          FROM logement) );
 
 /*Question 26 : Affichez le prénom et la ville où se trouve le logement de chaque propriétaire*/
-
-
+SELECT personne.prenom,
+       logement.ville
+FROM personne
+INNER JOIN logement_personne ON personne.idPersonne = logement_personne.idPersonne
+INNER JOIN logement ON logement_personne.idLogement = logement.idLogement;
 
 /*Question 27 : Quel est l’agence immobilière s’occupant de la plus grande gestion de logements répertoriés à Paris ? (alias : nombre, classement : trié par
 ordre décroissant)*/
-
-
+SELECT DISTINCT nom, 
+	COUNT(agence.idAgence) AS nombre
+FROM logement_agence
+INNER JOIN logement ON logement_agence.idLogement = logement.idLogement
+INNER JOIN agence ON agence.idAgence = logement_agence.idAgence
+WHERE ville = "paris"
+GROUP BY logement_agence.idAgence
+ORDER BY nombre DESC;
 
 /*Question 28 : Affichez le prix et le prénom des vendeurs dont les logements sont proposés à 130000 € ou moins en prix final avec frais appliqués par les
 agences (alias : prix final, classement : ordre croissant des prix finaux) :*/
