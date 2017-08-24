@@ -8,9 +8,9 @@ USE restaurant;
 CREATE TABLE IF NOT EXISTS Commande (
 	ID_Commande int NOT NULL primary key auto_increment, 
 	nom varchar(100) not null, 
-	`date` date, 
+	`date` varchar(100), 
 	total float, 
-	num_table int
+	numTable int
 )  ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS Plat (
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS Plat_Ingredients (
 
 
 -- insertion des éléments dans les tables de données Commande, Plat et Ingredients
- INSERT INTO Commande (nom, `date`, total, num_table) 
+ INSERT INTO Commande (nom, `date`, total, numTable) 
  VALUES  
  ("BERTRAND", '2017-08-22', 108.3, 8),
  ("DUPONT", '2017-08-22', 85.6, 6),
