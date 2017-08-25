@@ -1,0 +1,1 @@
+http://blog.paumard.org/cours/jpa/chap03-entite-relation.html
