@@ -1,11 +1,13 @@
 package fr.codevallee.formation.tp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+
 
 @Entity
 public class Commune {
@@ -17,6 +19,34 @@ public class Commune {
 	@Column(length = 40)
 	private String nom;
 	
-	@OneToOne
+	@OneToOne (cascade ={CascadeType.REMOVE, CascadeType.PERSIST}, orphanRemoval = true)
 	private Maire maire;
+
+	/**
+	 * @return the nom
+	 */
+	public String getNom() {
+		return nom;
+	}
+
+	/**
+	 * @param nom the nom to set
+	 */
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	/**
+	 * @return the maire
+	 */
+	public Maire getMaire() {
+		return maire;
+	}
+
+	/**
+	 * @param maire the maire to set
+	 */
+	public void setMaire(Maire maire) {
+		this.maire = maire;
+	}
 }

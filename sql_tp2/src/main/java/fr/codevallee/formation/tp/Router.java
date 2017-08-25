@@ -109,9 +109,63 @@ public class Router implements SparkApplication {
 			EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("formation");
 			EntityManager entityManager = entityManagerFactory.createEntityManager();
 			
+			{
+				
+				
+				// création et sauvegarde de plusieurs instances / Entités de la classe / de la table commune et maire,
+//				for (int i = 1; i<4; i++){
+//					Commune commune = new Commune();
+//					Maire maire = new Maire();
+//					commune.setNom("Commune " + i);
+//					maire.setNom("Maire " + i);
+//					commune.setMaire(maire);
+//					maire.setCommune(commune);
+//					
+//					entityManager.getTransaction().begin();
+//					entityManager.persist(commune);
+//					entityManager.persist(maire);
+//					entityManager.getTransaction().commit();
+//				}
+				
+				// recherche d'une entité par rapport à son id (type long) et suppression de celle-ci dans la table commune
+				// tests en cascade avec des entités maire et commune
+//				Commune commune = entityManager.find(Commune.class, 3L);
+//				//Maire maire = entityManager.find(Maire.class, 12L);
+//				entityManager.getTransaction().begin();
+//				entityManager.remove(maire);
+//				entityManager.getTransaction().commit();
+				
+				
+				// recherche d'une entité par rapport à son id (type long) et maj d'un attribut/ valeur de la table
+				Maire maire = entityManager.find(Maire.class, 14L);
+				entityManager.getTransaction().begin();
+				maire.setNom("Martin");
+				entityManager.getTransaction().commit();
+				
+				
+				// création et sauvegarde d'instances / Entités de la classe / de la table commune et maire,
+				// tests en cascade avec des entités maire et commune
+//				Commune commune = new Commune();
+//				Maire maire = new Maire();
+				
+				//commune.setNom("ICI");
+			//	commune.setNom("LaBas");
+//				commune.setMaire(maire);
+//				maire.setCommune(commune);
+				
+//				entityManager.getTransaction().begin();
+//				entityManager.persist(commune);
+//				entityManager.getTransaction().commit();
+				
+			}
+			
+			
+			
 			TypedQuery<Maire> query = entityManager.createQuery("from Maire", Maire.class);
 			query.getResultList();
 			attributes.put("objets", query.getResultList());
+
+
 			
 			return new ModelAndView(attributes, "commune.ftl");
 		}, getFreeMarkerEngine());
