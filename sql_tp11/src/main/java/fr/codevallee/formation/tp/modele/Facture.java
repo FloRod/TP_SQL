@@ -24,12 +24,16 @@ public class Facture {
 	@OneToMany
 	private Set<LigneFacture> ligneFactures = new HashSet<LigneFacture>();
 	
-//	private Adresse adresseFacturation = this.client.getAdresseFacturation();
+	@Column(length = 40)
+	private String nomClient;
+	
+	@Column(length = 100)
+	private String adresseFacturation;
 	
 	@Column(length = 40)
 	private String date;
 	
-	private Statut statut;
+	private String statut;
 
 	// constructeur par défaut
 	public Facture() {
@@ -40,7 +44,9 @@ public class Facture {
 		this.client = client;
 		this.ligneFactures = ligneFactures;
 		this.date = date;
-		this.statut = statut;
+		this.statut = statut.name();
+		this.adresseFacturation = client.getAdresseFacturation().toString();
+		this.nomClient = client.getNom();
 	}
 
 	

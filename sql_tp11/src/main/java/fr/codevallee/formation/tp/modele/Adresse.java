@@ -34,6 +34,9 @@ public class Adresse {
 		this.ville = ville;
 	}
 
+	public String toString(){
+		return this.rue + " , " + this.codePostale + " , " + this.ville;
+	}
 	
 	// Getters et Setters
 	/**
