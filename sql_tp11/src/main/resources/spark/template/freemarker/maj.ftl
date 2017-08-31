@@ -1,19 +1,14 @@
+<!DOCTYPE html>
 <html>
 
-	<form action="/resultat" method="get">
-	
-		Nom : <input type="text" name="nom">	
-		<br>
-		
-		Total : <input type="text" name="total">	
-		<br>
-		
-		Numéro table : <input type="text" name="numTable">	
-		<br>
-		
-		<button type="submit">Valider !</button>
-	
-	</form>
+<head>
+    <title>Formation JPA : TP 11</title>
+</head>
 
+<body>
 
+ <p> Opéation réussie !</p>
+ 
+ 
+</body>
 </html>

@@ -1,31 +1,41 @@
-package fr.codevallee.formation.tp;
+package fr.codevallee.formation.tp.modele;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+//import javax.persistence.ManyToOne;
+//import javax.persistence.OneToOne;
 
 @Entity
 public class Adresse {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long ID_Adresse;
+	private long idAdresse;
 	
+	@Column(length = 100)
 	private String rue;
 	
 	private int codePostale;
 	
+	@Column(length = 100)
 	private String ville;
 	
-	@OneToOne(mappedBy = "adresseFacturation")
-	private Client clientFacturation;
-	
-	@ManyToOne
-	private Client clientLivraison;
+	// constructeur par défaut
+	public Adresse() {
+	}
 
+	// Surcharge du constructeur
+	public Adresse(String rue, int codePostale, String ville) {
+		this.rue = rue;
+		this.codePostale = codePostale;
+		this.ville = ville;
+	}
+
+	
+	// Getters et Setters
 	/**
 	 * @return the rue
 	 */
@@ -67,34 +77,7 @@ public class Adresse {
 	public void setVille(String ville) {
 		this.ville = ville;
 	}
-
-	/**
-	 * @return the clientFacturation
-	 */
-	public Client getClientFacturation() {
-		return clientFacturation;
-	}
-
-	/**
-	 * @param clientFacturation the clientFacturation to set
-	 */
-	public void setClientFacturation(Client clientFacturation) {
-		this.clientFacturation = clientFacturation;
-	}
-
-	/**
-	 * @return the clientLivraison
-	 */
-	public Client getClientLivraison() {
-		return clientLivraison;
-	}
-
-	/**
-	 * @param clientLivraison the clientLivraison to set
-	 */
-	public void setClientLivraison(Client clientLivraison) {
-		this.clientLivraison = clientLivraison;
-	}
-
+	
+	
 
 }

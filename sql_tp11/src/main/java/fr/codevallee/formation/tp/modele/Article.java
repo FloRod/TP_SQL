@@ -1,5 +1,6 @@
-package fr.codevallee.formation.tp;
+package fr.codevallee.formation.tp.modele;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,12 +12,43 @@ public class Article {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long ID_Article;
+	private long idArticle;
+	
+	@Column(length = 40)
+	private String nom;
 	
 	private double prix;
 	
 	@ManyToOne
 	private ArticleDescription articleDescription;
+	
+	
+	// constructeur par défaut
+	public Article() {
+	}
+
+	// Surcharge du constructeur
+	public Article(String nom, double prix, ArticleDescription articleDescription) {
+		this.nom = nom;
+		this.prix = prix;
+		this.articleDescription = articleDescription;
+	}
+
+	
+	// Getters et Setters
+	/**
+	 * @return the nom
+	 */
+	public String getNom() {
+		return nom;
+	}
+
+	/**
+	 * @param nom the nom to set
+	 */
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
 
 	/**
 	 * @return the prix
@@ -45,5 +77,6 @@ public class Article {
 	public void setArticleDescription(ArticleDescription articleDescription) {
 		this.articleDescription = articleDescription;
 	}
-
+	
+	
 }

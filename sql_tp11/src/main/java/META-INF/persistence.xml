@@ -4,9 +4,9 @@
 	<persistence-unit name="formation" transaction-type="RESOURCE_LOCAL">
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/gestionFacture"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gestionFacture"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>
-			<property name="javax.persistence.jdbc.password" value="1234"/>
+			<property name="javax.persistence.jdbc.password" value="Diginamic2017"/>
 			
 
 		    <property name="hibernate.show_sql" value="true" />

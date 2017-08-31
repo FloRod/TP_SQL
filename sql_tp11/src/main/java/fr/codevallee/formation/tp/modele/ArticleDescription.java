@@ -1,20 +1,34 @@
-package fr.codevallee.formation.tp;
+package fr.codevallee.formation.tp.modele;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+//import javax.persistence.OneToMany;
 
+@Entity
 public class ArticleDescription {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long ID_Description;
+	private long idDescription;
 	
+	@Column(length = 100)
 	private String description;
+
 	
-	@OneToMany(mappedBy = "articleDescription")
-	private Article article;
+	// constructeur par défaut
+	public ArticleDescription() {
+	}
+
+	// Surcharge du constructeur
+	public ArticleDescription(String description) {
+		this.description = description;
+	}
+	
+	
+	// Getters et Setters
 
 	/**
 	 * @return the description
@@ -29,19 +43,6 @@ public class ArticleDescription {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	/**
-	 * @return the article
-	 */
-	public Article getArticle() {
-		return article;
-	}
-
-	/**
-	 * @param article the article to set
-	 */
-	public void setArticle(Article article) {
-		this.article = article;
-	}
+	
 
 }

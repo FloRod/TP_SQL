@@ -1,29 +1,56 @@
-package fr.codevallee.formation.tp;
+package fr.codevallee.formation.tp.modele;
 
+import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+//import javax.persistence.OneToOne;
 
+@Entity
 public class Client {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private long idClient;
 	
+	@Column(length = 40)
 	private String nom;
 	
+	@Column(length = 40)
 	private String prenom;
 
-	@OneToOne
+	@ManyToOne
 	private Adresse adresseFacturation;
 	
-	@OneToMany(mappedBy = "clientLivraison")
-	private Set<Adresse> adresseLivraisons;
+	@OneToMany
+	private Set<Adresse> adresseLivraisons = new HashSet<Adresse>();
+	
+	@OneToMany (mappedBy = "client")
+	@Column(nullable = true)
+	private Set<Facture> factures = new HashSet<Facture>();
 
+	// constructeur par défaut
+	public Client() {
+	}
+
+	// Surcharge du constructeur
+	public Client(String nom, String prenom, Adresse adresseFacturation, Set<Adresse> adresseLivraisons,
+			Set<Facture> factures) {
+		this.nom = nom;
+		this.prenom = prenom;
+		this.adresseFacturation = adresseFacturation;
+		this.adresseLivraisons = adresseLivraisons;
+		this.factures = factures;
+	}
+
+	
+	// Getters et Setters
 	/**
 	 * @return the nom
 	 */
@@ -79,6 +106,22 @@ public class Client {
 	public void setAdresseLivraisons(Set<Adresse> adresseLivraisons) {
 		this.adresseLivraisons = adresseLivraisons;
 	}
+
+	/**
+	 * @return the factures
+	 */
+	public Set<Facture> getFactures() {
+		return factures;
+	}
+
+	/**
+	 * @param factures the factures to set
+	 */
+	public void setFactures(Set<Facture> factures) {
+		this.factures = factures;
+	}
+	
+	
 
 
 }
