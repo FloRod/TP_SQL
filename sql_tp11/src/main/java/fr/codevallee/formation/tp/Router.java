@@ -205,26 +205,23 @@ public class Router implements SparkApplication {
 			
 			// Création des tab de Facture nécessaire au client (relation bidirectionnelle)
 			// Mise à jour du champ Facture des instances Client
+			entityManager.getTransaction().begin();
+			
 			Set<Facture> tabClientFacture1 = new HashSet<Facture>();
 			tabClientFacture1.add(facture1);
 			client1.setFactures(tabClientFacture1); 
+			
 			Set<Facture> tabClientFacture2 = new HashSet<Facture>();
 			tabClientFacture2.add(facture2);
 			client2.setFactures(tabClientFacture2);
+			
 			Set<Facture> tabClientFacture3 = new HashSet<Facture>();
 			tabClientFacture3.add(facture3);
 			tabClientFacture3.add(facture4);
 			client3.setFactures(tabClientFacture3);
 			
-			//
-			entityManager.getTransaction().begin();
-			entityManager.persist(client1);
-			entityManager.persist(client2);
-			entityManager.persist(client3);
 			entityManager.getTransaction().commit();
-		
-			
-//			entityManager.close();
+			entityManager.close();
 			
 			return new ModelAndView(attributes, "maj.ftl");
 		}, getFreeMarkerEngine());
