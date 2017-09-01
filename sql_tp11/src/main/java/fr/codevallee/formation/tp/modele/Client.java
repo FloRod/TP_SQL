@@ -28,10 +28,10 @@ public class Client {
 	@Column(length = 40)
 	private String prenom;
 
-	@ManyToOne(cascade ={CascadeType.PERSIST, CascadeType.REMOVE})
+	@ManyToOne
 	private Adresse adresseFacturation;
 	
-	@OneToMany
+	@OneToMany(cascade ={CascadeType.REMOVE})
 	private Set<Adresse> adresseLivraisons = new HashSet<Adresse>();
 	
 	@OneToMany (mappedBy = "client")

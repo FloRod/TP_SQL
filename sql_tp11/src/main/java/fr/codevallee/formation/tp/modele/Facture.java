@@ -3,6 +3,7 @@ package fr.codevallee.formation.tp.modele;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +22,7 @@ public class Facture {
 	@ManyToOne
 	private Client client;
 	
-	@OneToMany
+	@OneToMany(cascade ={CascadeType.REMOVE})
 	private Set<LigneFacture> ligneFactures = new HashSet<LigneFacture>();
 	
 	@Column(length = 40)
